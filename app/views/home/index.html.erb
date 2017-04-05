@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="iso-8859-7">
-    <link rel="stylesheet" href="style.css">
+    <!--<link rel="stylesheet" href="style.css">-->
   </head>
   <div class="background-image">
     <header>
@@ -16,7 +16,7 @@
     </header>
     <body>
       <div class ="first_section">
-        <h1 class="title-1">Hi, I'm [Your Name]</h1>
+        <h1 class="title-1">Hi, I'm Cam</h1>
         <h2 class="title-2">Welcome to my website</h2>
       </div>
     </div>
@@ -59,7 +59,7 @@
     </div>
     <script>
       var title = $('.title-1');
-      title.text("Hi, I'm ____");
+      title.text("Hi, I'm Cam");
       title.css({color: "red", fontSize: "60px"});
 
       function changeTitleColor(){
@@ -70,8 +70,28 @@
       function getRandomColor(){
         return "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
       }
-
-      title.hover(changeTitleColor);
+      
+      
+      
+      navigator.geolocation.getCurrentPosition(function(position) {
+        $.ajax({
+          url: "api/v1/weather",
+          method: "GET",
+          data: {lat: position.coords.latitude, lon: position.coords.longitude},
+          success: function(data) {
+            var title2 = $(".title-2")
+            title2.text("Today's weather is "+ data["currently"]["temperature"] )
+          }
+        });
+      },
+      function(error){
+        debugger
+      });
+      
+      
+      
+      
+      
 
     </script>
     </body>
